@@ -1,0 +1,19 @@
+{
+  "name": "captcha-form-poc",
+  "version": "0.1.0",
+  "bin": {
+    "captcha-form-poc": "bin/captcha-form-poc.js"
+  },
+  "scripts": {
+    "cdk": "cdk",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "1.59.0",
+    "aws-cdk": "1.59.0",
+    "jest": "^26.0.4"
+  },
+  "dependencies": {
+    "@aws-cdk/core": "1.59.0"
+  }
+}
