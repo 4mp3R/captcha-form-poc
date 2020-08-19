@@ -4,9 +4,21 @@ exports.handler = async function (event, context) {
   const { body, requestContext } = event;
   const { path, method } = requestContext.http;
 
-  if (path != "/" && method != "POST") {
+  if (!["OPTIONS", "POST"].includes(method)) {
     return {
       statusCode: 400,
+    };
+  }
+
+  if (method === "OPTIONS") {
+    return {
+      statusCode: 204,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Max-Age": "86400",
+      },
     };
   }
 
@@ -21,7 +33,7 @@ exports.handler = async function (event, context) {
     };
   }
 
-  var dbClient = new AWS.DynamoDB.DocumentClient();
+  const dbClient = new AWS.DynamoDB.DocumentClient();
   await dbClient
     .put({
       TableName: process.env.contactRequestTableName,
@@ -37,6 +49,7 @@ exports.handler = async function (event, context) {
     statusCode: 200,
     headers: {
       "Content-Type": "text/plain",
+      "Access-Control-Allow-Origin": "*",
     },
     body: `${method} ${path}`,
   };

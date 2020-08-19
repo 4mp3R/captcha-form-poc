@@ -77,6 +77,19 @@
     "@aws-cdk/cx-api" "1.59.0"
     constructs "^3.0.2"
 
+"@aws-cdk/aws-cloudfront@1.59.0":
+  version "1.59.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-cloudfront/-/aws-cloudfront-1.59.0.tgz#8876a18379f3f3bb93cd19113b3da7c870ff5281"
+  integrity sha512-x1PjhhG1LdmuJe/9wekB4psRmDiLXxkOIamAmAJb7D8/jVpsgR4S1B6KkAnnyBinxbrHEPUH1U28kfUDFOpv8A==
+  dependencies:
+    "@aws-cdk/aws-certificatemanager" "1.59.0"
+    "@aws-cdk/aws-iam" "1.59.0"
+    "@aws-cdk/aws-kms" "1.59.0"
+    "@aws-cdk/aws-lambda" "1.59.0"
+    "@aws-cdk/aws-s3" "1.59.0"
+    "@aws-cdk/core" "1.59.0"
+    constructs "^3.0.2"
+
 "@aws-cdk/aws-cloudwatch@1.59.0":
   version "1.59.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-cloudwatch/-/aws-cloudwatch-1.59.0.tgz#eec4c555da16461c9e505a6333e87b6ed9365b8e"
@@ -219,7 +232,20 @@
     "@aws-cdk/cx-api" "1.59.0"
     constructs "^3.0.2"
 
-"@aws-cdk/aws-s3@1.59.0":
+"@aws-cdk/aws-s3-deployment@^1.59.0":
+  version "1.59.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-s3-deployment/-/aws-s3-deployment-1.59.0.tgz#40822a95585fbe620d4ff64b1d0cbf14073527c6"
+  integrity sha512-5RldAJowkkNp0r22KjUe+621N+c7WiuJkLJDsreOfQSkF3GTBgidBKeKchqHh98CJINIE7e8QsQFcfE4EIb+Ag==
+  dependencies:
+    "@aws-cdk/aws-cloudfront" "1.59.0"
+    "@aws-cdk/aws-iam" "1.59.0"
+    "@aws-cdk/aws-lambda" "1.59.0"
+    "@aws-cdk/aws-s3" "1.59.0"
+    "@aws-cdk/aws-s3-assets" "1.59.0"
+    "@aws-cdk/core" "1.59.0"
+    constructs "^3.0.2"
+
+"@aws-cdk/aws-s3@1.59.0", "@aws-cdk/aws-s3@^1.59.0":
   version "1.59.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-s3/-/aws-s3-1.59.0.tgz#189dd94fa788ac3f16e68237b9faee8d2d4b7304"
   integrity sha512-hdxCBvxVqhzrJ7q6zPV3M6Xcvx0FOrZfIq/608ZnV9uASMUqoWoyssKC8BPxLuQmJg9lMHNOTvz4JEo/tmcINQ==
@@ -254,7 +280,7 @@
     "@aws-cdk/core" "1.59.0"
     constructs "^3.0.2"
 
-"@aws-cdk/aws-ssm@1.59.0":
+"@aws-cdk/aws-ssm@1.59.0", "@aws-cdk/aws-ssm@^1.59.0":
   version "1.59.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-ssm/-/aws-ssm-1.59.0.tgz#62bf4093bb126b3460fc6f344e5ec6fddb6f4f3e"
   integrity sha512-oGHTXoRqG5nuCgcjsA1tq/Z5snCUXXWU1vBioL/8selhukV4HEMm5O03FJiPAEQ31U196PkrRqludG8JJMv8pA==

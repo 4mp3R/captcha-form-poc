@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Contact request</title>
+  </head>
+  <body>
+    <form id="contactForm">
+      <textarea name="message" cols="30" rows="10">
+        Hello there, this is a contact request.
+      </textarea>
+      <button type="submit">Send contact request</button>
+    </form>
+
+    <script>
+      const formElement = document.getElementById("contactForm");
+
+      formElement.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const message = formElement
+          .querySelector('[name="message"]')
+          .value.trim();
+
+        await fetch("{{ CONTACT_REQUEST_ENDPOINT }}", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message }),
+        });
+      });
+    </script>
+  </body>
+</html>
