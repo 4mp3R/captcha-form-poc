@@ -8,4 +8,5 @@ cdk.context.json
 # Parcel default cache directory
 .parcel-cache
 
-frontend/index.html
+env.json
+dist

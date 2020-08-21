@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Contact request</title>
+  </head>
+  <body>
+    <form id="contactForm">
+      <textarea name="message" cols="30" rows="10">
+Hello there, this is a contact request.</textarea
+      >
+      <div class="g-recaptcha" data-sitekey="{RECAPTCHA_SITE_KEY}"></div>
+      <button type="submit">Send contact request</button>
+    </form>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+      const formElement = document.getElementById("contactForm");
+
+      async function sendMessage() {
+        const message = formElement
+          .querySelector('[name="message"]')
+          .value.trim();
+        const reCaptchaResponse = grecaptcha.getResponse();
+
+        if (!reCaptchaResponse) {
+          alert("You must verify you're not a robot first.");
+          return;
+        }
+
+        const payload = JSON.stringify({ message, reCaptchaResponse });
+        await fetch("{CONTACT_REQUEST_ENDPOINT}", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Content-Length": payload.length,
+          },
+          body: payload,
+        });
+      }
+
+      formElement.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await sendMessage();
+      });
+    </script>
+  </body>
+</html>

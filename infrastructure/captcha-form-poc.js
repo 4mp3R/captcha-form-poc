@@ -3,11 +3,12 @@
 const cdk = require("@aws-cdk/core");
 const { BackendStack } = require("./backend-stack");
 const { FrontendStack } = require("./frontend-stack");
+const env = require("../env.json");
 
 const stackProps = {
   env: {
-    account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION || "eu-central-1",
+    account: env.cdkDefaultAccount,
+    region: env.awsRegion,
   },
 };
 

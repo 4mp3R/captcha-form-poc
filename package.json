@@ -8,12 +8,12 @@
     "cdk": "cdk",
     "init": "cdk bootstrap",
     "deploy": "cdk deploy CaptchaFormPocBackendStack CaptchaFormPocFrontendStack",
+    "destroy": "cdk destroy CaptchaFormPocFrontendStack CaptchaFormPocBackendStack",
     "test": "jest"
   },
   "devDependencies": {
     "@aws-cdk/assert": "1.59.0",
-    "aws-cdk": "1.59.0",
-    "jest": "^26.0.4"
+    "aws-cdk": "1.59.0"
   },
   "dependencies": {
     "@aws-cdk/aws-apigatewayv2": "^1.59.0",

@@ -1,4 +1,36 @@
+const https = require("https");
+const querystring = require("querystring");
 const AWS = require("aws-sdk");
+const env = require("./env.json");
+
+function isReCaptchaSuccessful(reCaptchaResponse) {
+  const postData = querystring.stringify({
+    secret: env.reCaptchaSecretKey,
+    response: reCaptchaResponse,
+  });
+  const options = {
+    hostname: "www.google.com",
+    port: 443,
+    path: "/recaptcha/api/siteverify",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Length": postData.length,
+    },
+  };
+
+  return new Promise((resolve, reject) => {
+    const request = https.request(options, (response) => {
+      response.on("data", (chunk) => {
+        const { success } = JSON.parse(chunk.toString());
+        resolve(success === true);
+      });
+      response.on("error", reject);
+    });
+    request.write(postData);
+    request.end();
+  });
+}
 
 exports.handler = async function (event, context) {
   const { body, requestContext } = event;
@@ -22,14 +54,24 @@ exports.handler = async function (event, context) {
     };
   }
 
-  let message;
+  let message, reCaptchaResponse;
   try {
-    message = JSON.parse(body).message;
+    const payload = JSON.parse(body);
+    message = payload.message;
+    reCaptchaResponse = payload.reCaptchaResponse;
   } catch (_) {}
 
-  if (!message) {
+  if (!message || !reCaptchaResponse) {
     return {
       statusCode: 400,
+    };
+  }
+
+  const reCaptchaSuccess = await isReCaptchaSuccessful(reCaptchaResponse);
+
+  if (!reCaptchaSuccess) {
+    return {
+      statusCode: 401,
     };
   }
 
