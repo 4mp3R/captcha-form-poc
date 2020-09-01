@@ -18,7 +18,6 @@ function isReCaptchaSuccessful(reCaptchaResponse) {
       "Content-Length": postData.length,
     },
   };
-
   return new Promise((resolve, reject) => {
     const request = https.request(options, (response) => {
       response.on("data", (chunk) => {
@@ -76,23 +75,26 @@ exports.handler = async function (event, context) {
   }
 
   const dbClient = new AWS.DynamoDB.DocumentClient();
+  const id = `${Date.now()}${Math.floor(Math.random() * 1000)}`;
   await dbClient
     .put({
       TableName: process.env.contactRequestTableName,
       Item: {
-        id: `${Date.now()}${Math.floor(Math.random() * 1000)}`,
-        createdAt: new Date().toISOString(),
+        id,
         message,
+        createdAt: new Date().toISOString(),
       },
     })
     .promise();
 
+  const responseBody = JSON.stringify({ id });
   return {
-    statusCode: 200,
+    statusCode: 201,
     headers: {
-      "Content-Type": "text/plain",
+      "Content-Type": "application/json",
+      "Content-Length": responseBody.length,
       "Access-Control-Allow-Origin": "*",
     },
-    body: `${method} ${path}`,
+    body: responseBody,
   };
 };

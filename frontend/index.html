@@ -28,7 +28,7 @@ Hello there, this is a contact request.</textarea
         }
 
         const payload = JSON.stringify({ message, reCaptchaResponse });
-        await fetch("{CONTACT_REQUEST_ENDPOINT}", {
+        const { status } = await fetch("{CONTACT_REQUEST_ENDPOINT}", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -36,6 +36,14 @@ Hello there, this is a contact request.</textarea
           },
           body: payload,
         });
+
+        if (status === 201) {
+          alert("SUCCESS");
+        } else {
+          alert("FAILURE");
+        }
+
+        grecaptcha.reset();
       }
 
       formElement.addEventListener("submit", async (event) => {
